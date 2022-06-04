@@ -34,8 +34,18 @@ void non_preemptive(void)
     xTaskCreatePinnedToCore(hello,"hello_task",1024*4,NULL,1,NULL,0);
 }
 ```
+Priority uses Semaphore and Mutex locks to pre-empt a lower priority task for x seconds using the FreeRTOS command
+```
+xSemaphoreTake(xMutex, portMAX_DELAY); // Create the common Semaphore 
+vTaskDelay(1000/portTICK_PERIOD_MS); // set time delay
+```
 ## Connect Wifi
 Import the example Code from ESP-IDF examples. Change the SSID and Password to the appropriate network that you want to onboard.
+
+## Connect OTA
+Over the Air Updates can be sent via the MQTT protocol. A Server Certificate is neccessary for the IoT nodes to subscribe to the Update when it goes live.
+
+The encryption that it uses is sha256 which is a 256 bit encrypted string that ensures End-to-End Safety.
 
 ## Run The Main file.
 ```
@@ -53,6 +63,7 @@ The final directory should look like this with all the components made.
 ├── build
 ├── components
     ├── blinky
+    ├── OTA
     ├── dual_core
     ├── hello_world
     ├── priority
